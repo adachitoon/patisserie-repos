@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>patisserie repos | 大切な人に贈る心と体に優しいお菓子</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #c0957a;
+            --secondary-color: #6a3b2b;
+            --accent-color: #c2ae9b;
+            --text-color: #333333;
+            --light-text: #666666;
+            --bg-color: #ffffff;
+            --bg-soft: #f7f5f2;
+            --border-color: #e9e5e0;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 8rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        /* ヘッダー */
+        header {
+            padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--secondary-color);
+            letter-spacing: 0.08em;
+        }
+        
+        .logo span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--light-text);
+            font-weight: 300;
+            margin-top: -5px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-md);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .nav-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* ヒーローセクション */
+        .hero {
+            height: 100vh;
+            width: 100vw;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .slider-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
+        
+        .slider-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .slider-image.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            z-index: 3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            color: #fff;
+            padding: 0 var(--spacing-md);
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: 0.1em;
+            line-height: 1.3;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-title br {
+            display: block;
+            content: "";
+            margin: 0.5em 0;
+        }
+        
+        .hero-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: var(--spacing-lg);
+            font-weight: 300;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 36px;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            text-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .cta-button:hover {
+            background-color: #fff;
+            color: var(--secondary-color);
+            text-shadow: none;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 5;
+            text-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* セクション共通 */
+        section {
+            padding: var(--spacing-xl) var(--spacing-lg);
+            margin: 0 auto;
+        }
+        
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary-color);
+        }
+        
+        .section-title p {
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+        
+        /* アバウト */
+        .about {
+            background-color: #f0e9e0;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+        
+        .about-text {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            line-height: 2;
+            color: var(--light-text);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .about-image {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* メニュー */
+        .menu-category {
+            margin-bottom: var(--spacing-xl);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .menu-category-title {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .menu-category-title h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .menu-category-title p {
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            max-width: 1000px;
+        }
+        
+        .menu-item {
+            margin: 0 0 50px 0;
+            padding: 0 15px;
+        }
+        
+        .menu-image {
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            overflow: hidden;
+            width: 405px;
+            height: 270px;
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 0 auto var(--spacing-sm);
+        }
+        
+        .menu-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .menu-content {
+            text-align: center;
+        }
+        
+        .menu-name {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: var(--spacing-xs);
+            letter-spacing: 0.05em;
+        }
+        
+        .menu-desc {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.7;
+        }
+        
+        .menu-price {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+        
+        /* アクセス */
+        .access {
+            background-color: var(--bg-soft);
+            width: 100%;
+            position: relative;
+        }
+        
+        .access-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+        
+        .access-text {
+            line-height: 1.8;
+        }
+        
+        .access-info {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .access-info h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary-color);
+        }
+        
+        .access-info p {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .access-map {
+            height: 400px;
+        }
+        
+        .access-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* フッター */
+        footer {
+            background-color: var(--bg-color);
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-logo {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: 0.1em;
+        }
+        
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            font-size: 0.85rem;
+        }
+        
+        .footer-nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-info {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.8;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .social-icons a {
+            color: var(--light-text);
+            font-size: 1rem;
+            padding: var(--spacing-xs);
+        }
+        
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            font-size: 0.8rem;
+            color: var(--light-text);
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            :root {
+                --spacing-lg: 3rem;
+                --spacing-xl: 5rem;
+            }
+            
+            .access-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .access-text {
+                order: 2;
+            }
+            
+            .access-map {
+                order: 1;
+                height: 300px;
+            }
+            
+            .menu-image {
+                width: 100%;
+                height: 0;
+                padding-top: 66.67%; /* 3:2のアスペクト比を維持 */
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-list {
+                gap: var(--spacing-sm);
+                font-size: 0.8rem;
+            }
+            
+            section {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-item {
+                padding: 0 10px;
+            }
+        }
+        
+        /* ビデオセクション */
+        .video-section {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
+        
+        .video-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            position: relative;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            z-index: 2;
+        }
+        
+        /* コンセプト */
+        .concept {
+            width: 100%;
+            position: relative;
+            background-color: #f2f5f0;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .concept-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+        
+        .concept-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+        
+        .concept-intro {
+            margin-bottom: var(--spacing-lg);
+            line-height: 2;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+        
+        .concept-divider {
+            width: 1px;
+            height: 80px;
+            background-color: #a8d0b4;
+            margin: var(--spacing-lg) auto;
+        }
+        
+        .concept-item {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            align-items: center;
+        }
+        
+        .concept-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .concept-item-text {
+            flex: 1;
+        }
+        
+        .concept-item-title {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: var(--spacing-sm);
+            color: var(--secondary-color);
+            letter-spacing: 0.05em;
+        }
+        
+        .concept-item-desc {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        
+        .concept-item-image {
+            flex: 1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .concept-item-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .concept-item {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                margin-bottom: var(--spacing-lg);
+            }
+            
+            .concept-item:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .concept-item-image {
+                width: 100%;
+            }
+            
+            .concept-item-text {
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-list {
+                gap: var(--spacing-sm);
+                font-size: 0.8rem;
+            }
+            
+            section {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-item {
+                padding: 0 10px;
+            }
+            
+            .concept-inner {
+                padding: 0 var(--spacing-md);
+            }
+            
+            .concept-item-text {
+                padding: 0 10px;
+            }
+        }
+        
+        /* パララックス */
+        .parallax-section {
+            position: relative;
+            height: 400px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: hidden;
+        }
+        
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .parallax-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 var(--spacing-md);
+        }
+        
+        .parallax-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: 0.1em;
+            line-height: 1.3;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .parallax-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: var(--spacing-md);
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">patisserie repos</div>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#menu">MENU</a></li>
+                    <li><a href="#access">ACCESS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slider-image active">
+                <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="美味しいケーキ">
+            </div>
+            <div class="slider-image">
+                <img src="https://images.unsplash.com/photo-1579306194872-64d3b7bac4c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="美味しいケーキ">
+            </div>
+            <div class="slider-image">
+                <img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="美味しいケーキ">
+            </div>
+            <div class="slider-image">
+                <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="美味しいケーキ">
+            </div>
+            <div class="slider-image">
+                <img src="https://images.unsplash.com/photo-1558326567-98166e4f8d9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="美味しいケーキ">
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">《ココロ》が伝わる<br>グルテンフリースイーツ</h1>
+            <p class="hero-text">大切な人へ贈る 心と身体に優しいお菓子</p>
+            <a href="#" class="cta-button">お電話でのご予約</a>
+        </div>
+        <div class="scroll-indicator">SCROLL</div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="section-inner">
+            <div class="section-title">
+                <h2>ABOUT</h2>
+                <p>私たちについて</p>
+            </div>
+            <div class="about-text">
+                <p>私たちは以下のコンセプトでお菓子作りをしています。《ココロ》が伝わるグルテンフリースイーツ。大切な人へ贈る心と身体に優しいお菓子をご提供しています。</p>
+                <p>何気ない毎日の中で、心安らぐひと時を。私たちはお客様ひとりひとりに寄り添う、心地よい空間とお食事を提供する憩いの場です。</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="カフェの内装">
+            </div>
+        </div>
+    </section>
+
+    <section id="access" class="access">
+        <div class="section-inner">
+            <div class="section-title">
+                <h2>ACCESS</h2>
+                <p>アクセス</p>
+            </div>
+            <div class="access-content">
+                <div class="access-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3257.552908273041!2d139.58143087627116!3d35.26737705259647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601847ad80612d2d%3A0xa9116c5e6ef2d863!2zTElUVExFIFNUQU5EIEhBWUFNQS_jg6rjg4jjg6vjgrnjgr_jg7Pjg4nokYnlsbE!5e0!3m2!1sja!2sjp!4v1744359449427!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="access-text">
+                    <div class="access-info">
+                        <h3>ADDRESS</h3>
+                        <p>〒240-0111</p>
+                        <p>神奈川県三浦郡葉山町一色１７２３−１</p>
+                        <p>LITTLE STAND HAYAMA</p>
+                    </div>
+                    <div class="access-info">
+                        <h3>OPENING HOURS</h3>
+                        <p>毎週金曜日: 11:00 - 15:00</p>
+                    </div>
+                    <div class="access-info">
+                        <h3>CONTACT</h3>
+                        <p>メール: info@patisserie-repos.jp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="section-inner">
+            <div class="section-title">
+                <h2>MENU</h2>
+                <p>メニュー</p>
+            </div>
+
+            <div class="menu-category">
+                <div class="menu-category-title">
+                    <h3>Lunch</h3>
+                    <p>ランチ</p>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="グルテンフリーカレーライス">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="menu-name">グルテンフリーカレーライス</h4>
+                            <p class="menu-desc">厳選された素材を使った体に優しいカレーライス</p>
+                            <p class="menu-price">フル ¥1,000 / ハーフ ¥600</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="menu-category-title">
+                    <h3>Sweets</h3>
+                    <p>スイーツ</p>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="キャロットケーキ">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="menu-name">キャロットケーキ</h4>
+                            <p class="menu-desc">人参の自然な甘さを活かした優しい味わいのグルテンフリーケーキ</p>
+                            <p class="menu-price">¥550</p>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="シフォンケーキ">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="menu-name">シフォンケーキ</h4>
+                            <p class="menu-desc">ふわふわの食感が特徴的なグルテンフリーシフォンケーキ</p>
+                            <p class="menu-price">¥500</p>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="バスクチーズケーキ">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="menu-name">バスクチーズケーキ</h4>
+                            <p class="menu-desc">外はカリッ、中はとろりとした食感が楽しめるグルテンフリー</p>
+                            <p class="menu-price">¥500</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="menu-category-title">
+                    <h3>Drink</h3>
+                    <p>ドリンク</p>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="エチオピアコーヒー">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="menu-name">エチオピアコーヒー</h4>
+                            <p class="menu-desc">フルーティーな香りとすっきりとした後味が特徴</p>
+                            <p class="menu-price">¥500</p>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="キリマンジャロコーヒー">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="menu-name">キリマンジャロコーヒー</h4>
+                            <p class="menu-desc">豊かな香りとコクのあるキリマンジャロ産コーヒー</p>
+                            <p class="menu-price">¥500</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax-section" style="background-image: url('https://images.pexels.com/photos/907142/pexels-photo-907142.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="parallax-overlay">
+            <div class="parallax-content">
+                <h2 class="parallax-title">心と体に優しいひとときを</h2>
+                <p class="parallax-text">自然の恵みと、丁寧に作られたお菓子の温かさが、あなたの日常に特別な瞬間を。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="concept" class="concept">
+        <div class="concept-inner">
+            <div class="section-title">
+                <h2>CONCEPT</h2>
+                <p>コンセプト</p>
+            </div>
+            <div class="concept-intro">
+                <p>特別な一時を、完全にこだわりを持ってもらいたい。</p>
+                <p>何気ない日々の中で、心安らぐひと時を。私たちはお客様ひとりひとりに寄り添う、心地よい空間とお食事を提供する憩いの場です。</p>
+                <p>心身ともに安らぎを感じ、ゆったりとやさしい時間を。</p>
+            </div>
+            
+            <div class="concept-divider"></div>
+            
+            <div class="concept-item">
+                <div class="concept-item-text">
+                    <h3 class="concept-item-title">ドライフルーツと自家製こだわりジャム</h3>
+                    <p class="concept-item-desc">毎日をより豊かに、より美しく過ごしていただきたい。わたしたちはお菓子づくりを通して、そのお手伝いをしていきたいと考えています。素材にこだわり、シンプルだけれど本当においしいと感じられるお菓子。手にとっていただいた方がほっとする、そんなお菓子をお届けしたいと思っています。</p>
+                    <p class="concept-item-desc">一つ一つ丁寧に作られたお菓子には、私たちの想いが込められています。その想いが皆様に届き、日々の生活がほんの少し豊かになりますように。特別な日のおもてなしやギフトにも、ぜひpatisserie reposのお菓子をご利用ください。</p>
+                </div>
+                <div class="concept-item-image">
+                    <img src="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=800" alt="ドライフルーツとジャム">
+                </div>
+            </div>
+            
+            <div class="concept-divider"></div>
+            
+            <div class="concept-item">
+                <div class="concept-item-image">
+                    <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="スープ">
+                </div>
+                <div class="concept-item-text">
+                    <h3 class="concept-item-title">定番のスープ</h3>
+                    <p class="concept-item-desc">食材の持つ本来の味を活かしたスープは、patisserie reposの心地よい時間をより一層深めてくれます。季節ごとに変わる食材を大切に、身体を内側から温める優しい味わいのスープをご提供しています。お菓子とは違った、食事としての満足感もお楽しみいただけます。</p>
+                </div>
+            </div>
+            
+            <div class="concept-divider"></div>
+            
+            <div class="concept-item">
+                <div class="concept-item-text">
+                    <h3 class="concept-item-title">揚げないでもおいしいカツレツ</h3>
+                    <p class="concept-item-desc">patisserie reposでは健康に配慮した調理法を大切にしています。揚げずに仕上げたカツレツは、軽やかな食感と素材の旨味を存分に味わえる一品です。グルテンフリーにこだわり、身体に優しい食材を使用することで、食事制限のある方にも安心して召し上がっていただけます。素材の味わいと健康への配慮が両立した、新しい形のカツレツをぜひお試しください。</p>
+                </div>
+                <div class="concept-item-image">
+                    <img src="https://images.unsplash.com/photo-1597393353415-b3730f3719fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="カツレツ">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">patisserie repos</div>
+        <div class="footer-nav">
+            <a href="#about">ABOUT</a>
+            <a href="#menu">MENU</a>
+            <a href="#access">ACCESS</a>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/patisserierepos/"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 patisserie repos. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // スライダーの自動切り替え
+        const sliderImages = document.querySelectorAll('.slider-image');
+        let currentSlide = 0;
+        
+        function nextSlide() {
+            sliderImages[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % sliderImages.length;
+            sliderImages[currentSlide].classList.add('active');
+        }
+        
+        // 5秒ごとに画像を切り替え
+        setInterval(nextSlide, 5000);
+        
+        // スクロール時のヘッダー変化
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.8rem 2rem';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            } else {
+                header.style.padding = '2rem 2rem 1rem';
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
